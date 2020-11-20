@@ -1,7 +1,7 @@
 import pygame
 import sys
 import time
-
+import random
 from lazerfield import Lazer_field, load_image
 
 HEIGHT = 8
@@ -34,6 +34,10 @@ board_origin = (BOARD_PADDING, BOARD_PADDING)
 
 instructions = True
 game = Lazer_field()
+stars = set()
+for i in range(random.randint(50, 500)):
+    stars.add((random.randint(0, width),  random.randint(0, height)))
+
 while True:
     if game.done == False:
         screen.fill(BLACK)
@@ -49,7 +53,8 @@ while True:
         sh = keystate[pygame.K_w] or keystate[pygame.K_s]
         game.p2.shoot(sh)
         
-        
+        for star in stars:
+            pygame.draw.rect(screen, (255, 255,255), (star[0], star[1], 1, 1))
         # print(game)
         # print(game.collide())
         game.collide()
